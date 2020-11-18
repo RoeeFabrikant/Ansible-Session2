@@ -1,0 +1,17 @@
+- name: Add Docker official GPG
+  rpm_key:
+    key: "{{ docker_gpg_yum }}"
+    state: present
+  
+- name: Add Docker repository - YUM
+  get_url:
+    url: "{{ docker_repo_yum }}"
+    dest: '/etc/yum.repos.d/docker-ce.repo'
+    mode: 0644
+
+- name: Run yum update and Install required packages for yum
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop: "{{ docker_packages_yum }}"

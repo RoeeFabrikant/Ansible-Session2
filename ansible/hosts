@@ -1,0 +1,12 @@
+[debian_nodes]
+node1
+node2
+
+[redhat_nodes]
+node3
+
+[debian_nodes:vars]
+ansible_user=ubuntu
+
+[redhat_nodes:vars]
+ansible_user=ec2-user

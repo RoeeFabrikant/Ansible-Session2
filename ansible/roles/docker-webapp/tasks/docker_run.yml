@@ -1,0 +1,6 @@
+- name: create nginx container
+  docker_container:
+    image: "{{ docker_image }}"
+    name: "{{ container_name }}"
+    ports: '{{ container_port }}'
+

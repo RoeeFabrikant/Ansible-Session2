@@ -1,0 +1,20 @@
+- name: Create group
+  group:
+    name: docker
+    state: present
+
+- name: append users to docker group - debian
+  user:
+    name: "{{ item }}"
+    group: docker
+    append: yes
+  loop: "{{ username_debian }}"
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: append users to docker group - redhat
+  user:
+    name: "{{ item }}"
+    group: docker
+    append: yes
+  loop: "{{ username_redhat }}"
+  when: ansible_facts['os_family'] == "RedHat"
