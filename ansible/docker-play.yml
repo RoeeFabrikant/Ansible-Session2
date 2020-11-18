@@ -1,0 +1,6 @@
+---
+- name: Docker setup ubuntu
+  hosts: redhat_nodes, debian_nodes
+  become: yes
+  roles:
+    - docker-webapp

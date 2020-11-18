@@ -1,0 +1,26 @@
+
+- include_tasks: docker_install_debian.yml
+  when: ansible_facts['os_family'] == "Debian"
+
+- include_tasks: docker_install_redhat.yml
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: Install Docker Engine
+  package:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  notify: restart docker
+  loop: "{{ docker_engine }}"
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+
+- include_tasks: docker_users.yml
+
+- name: force handlers to run (restart docker service)
+  meta: flush_handlers
+
+- include_tasks: docker_run.yml
+

@@ -1,0 +1,19 @@
+# Debian install
+
+- name: Run apt update and install required packages for apt
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop: "{{ docker_packages_apt }}"
+
+- name: Add Docker official GPG
+  apt_key:
+    url: "{{ docker_gpg_apt }}"
+    state: present
+
+- name: Add Docker repository - APT
+  apt_repository:
+    repo: "{{ docker_repo_apt }}"
+    state: present
+  when: ansible_facts['os_family'] == "Debian"
